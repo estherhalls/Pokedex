@@ -13,6 +13,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        NetworkingController.fetchPokemon(with: "45") { pokemon in
+            guard let pokemon else {return}
+            print(pokemon.name)
+        }
         // Override point for customization after application launch.
         return true
     }
