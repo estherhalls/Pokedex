@@ -40,7 +40,7 @@ class NetworkingController {
     }
     // Getting images from the internet requires network call with completion handler
     /// Remember to Import UIKit at top of file
-    func fetchImage(for pokemon: Pokemon, completion: @escaping (UIImage?) -> Void) {
+    static func fetchImage(for pokemon: Pokemon, completion: @escaping (UIImage?) -> Void) {
         // Step 1 - Construct URL
         guard let url = URL(string: pokemon.spritePath) else {completion(nil); return}
         //Step 2 - DataTask
