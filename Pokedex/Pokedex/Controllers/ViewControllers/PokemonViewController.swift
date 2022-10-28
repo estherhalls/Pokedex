@@ -46,16 +46,24 @@ class PokemonViewController: UIViewController {
 // MARK: - Table View Data Source
 extension PokemonViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        return pokemon?.moves.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: "moveCell", for: indexPath)
+        guard let pokemon else {return UITableViewCell()}
+        let move = pokemon.moves[indexPath.row]
+        cell.textLabel?.text = move
+        return cell
     }
-    
-    
 }
+
 // MARK: - Search Bar Delegate
 extension PokemonViewController: UISearchBarDelegate {
-    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        NetworkingController.fetchPokemon(with: searchText) { pokemon in
+            guard let pokemon else {return}
+            self.updateViews(pokemon: pokemon)
+        }
+    }
 }
